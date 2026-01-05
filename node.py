@@ -28,7 +28,7 @@ NODE_ID = ""
 PEERS: List[str] = []  # base URLs, e.g. http://10.0.1.12:8000
 
 DELAY_RULES = {
-    # Example format:
+    ("A", "http://172.31.9.224:8002"): 2.0
     # ("A", "http://10.0.1.13:8002"): 2.0
 }
 # YOUR CODE HERE:
@@ -39,7 +39,7 @@ def lamport_tick_local() -> int:
     """Increment Lamport clock for a local event and return new value."""
     global LAMPORT
     with lock:
-        # YOUR CODE HERE
+        LAMPORT += 1
         return LAMPORT
 
 
@@ -47,7 +47,7 @@ def lamport_on_receive(received_ts: int) -> int:
     """On receive: L = max(L, received_ts) + 1. Return new value."""
     global LAMPORT
     with lock:
-        # YOUR CODE HERE
+        LAMPORT = max(LAMPORT, received_ts) + 1
         return LAMPORT
 
 
